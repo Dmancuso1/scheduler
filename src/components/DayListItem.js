@@ -5,6 +5,16 @@ import "components/DayListItem.scss";
 const classNames = require('classnames') // see docs: https://github.com/JedWatson/classnames#usage
 
 
+const formatSpots = (numOfSpots) => {
+  if (numOfSpots === 0) {
+    return "no spots remaining";
+  } else if (numOfSpots === 1) {
+    return "1 spot remaining"
+  } else {
+    return `${numOfSpots} spots remaining`
+  }
+};
+
 
 export default function DayListItem(props) {
 
@@ -16,7 +26,7 @@ export default function DayListItem(props) {
   return (
     <li onClick={() => props.setDay(props.name)}>
       <h2 className={DayListItemClass}>{props.name}</h2> 
-      <h3 className={DayListItemClass}>{props.spots} spots remaining</h3>
+      <h3 className={DayListItemClass}> {formatSpots(props.spots)}</h3>
     </li>
   );
 }
