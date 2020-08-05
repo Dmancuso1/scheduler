@@ -22,7 +22,7 @@ import DayListItem from "./DayListItem";
 
 
 export default function DayList(props) {
-  console.log(props);
+  // console.log(props);
   const days = props.days;
   const dayListItems = days.map(day => {
     return (
