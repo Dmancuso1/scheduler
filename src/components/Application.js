@@ -4,69 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import getAppointmentsForDay from "helpers/selectors";
-
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
-
-// hard coded data to be removed
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 3,
-//     time: "3pm",
-//     interview: {
-//       student: "Darth Vader",
-//       interviewer: {
-//         id: 2,
-//         name: "Tori Malcolm",
-//         avatar: "https://i.imgur.com/Nmx0Qxo.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 4,
-//     time: "6pm",
-//     interview: {
-//       student: "Luke Skywalker",
-//       interviewer: {
-//         id: 4,
-//         name: "Cohana Roy",
-//         avatar: "https://i.imgur.com/FK8V841.jpg",
-//       }
-//     }
-//   }
-// ];
+import {getAppointmentsForDay, getInterview} from "helpers/selectors";
 
 
 export default function Application(props) {
@@ -76,26 +14,30 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const setDay = day => setState({ ...state, day });
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setAppointment = appointments => setState(prev => ({ ...prev, appointments }));
+  const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
   const url1 = "/api/days"
   const url2 = "/api/appointments"
-
+  const url3 = "/api/interviewers"
 
   useEffect(() => {
     Promise.all([
       axios.get(url1),
-      axios.get(url2)
+      axios.get(url2),
+      axios.get(url3)
       ])
       .then((all) => {
         // console.log('ALL',all)
       setDays(all[0].data)
       setAppointment(all[1].data)
+      setInterviewers(all[2].data)
       })
   }, []);
 
@@ -105,15 +47,17 @@ export default function Application(props) {
   const appts = getAppointmentsForDay(state, state.day).map(appt => {
     // console.log('appt', appt.interview);
     // console.log('student', appt.interview && appt.interview.student);
+    const interview = getInterview(state, appt.interview);
+    console.log('appt.interview', appt.interview)
     return (
       <Appointment
-        key={appt.id} {...appt} // may need to remove spread later..
-      // id = {appt.id}
-      // time = {appt.time}
-      // interview = {appt.interview}
+        key={appt.id} 
+        id = {appt.id}
+        time = {appt.time}
+        interview = {interview} // invoking above function which is defined in helpers
       />
     );
-  })
+  });
 
   return (
     <main className="layout">
