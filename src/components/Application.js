@@ -4,7 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
 export default function Application(props) {
@@ -32,31 +32,79 @@ export default function Application(props) {
       axios.get(url1),
       axios.get(url2),
       axios.get(url3)
-      ])
+    ])
       .then((all) => {
         // console.log('ALL',all)
-      setDays(all[0].data)
-      setAppointment(all[1].data)
-      setInterviewers(all[2].data)
+        setDays(all[0].data)
+        setAppointment(all[1].data)
+        setInterviewers(all[2].data)
       })
   }, []);
 
 
 
+  /*
+This function will log the values that we pass to it for now. In the future it will allow us to change the local state when we book an interview. The next logical step is to ensure that the child can call the action with the correct data.
+*/
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    const apptId = appointment.id
+    const url = `/api/appointments/${apptId}`
+    return axios.put(url, appointment)
+      .then((res) => {
+        console.log('httpStatus: ', res.status);
+        setState({ ...state, appointments })
+      })
+      .catch((err) => {
+        console.log('catch', err);
+      });
+  };
+
+  const cancelInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    const apptId = appointment.id
+    const url = `/api/appointments/${apptId}`
+    console.log(appointment);
+    return axios.delete(url, appointment)
+      .then((res) => {
+        console.log('httpStatus: ', res.status);
+        setState({ ...state, appointments })
+      })
+      .catch((err) => {
+        console.log('catch', err);
+      });
+  };
+
+
+
 
   const appts = getAppointmentsForDay(state, state.day).map(appt => {
-    // console.log('appt', appt.interview);
-    // console.log('student', appt.interview && appt.interview.student);
     const interview = getInterview(state, appt.interview);
     const interviewersForDay = getInterviewersForDay(state, state.day)
-    console.log('appt.interview', appt.interview)
+    // console.log('appt.interview', appt.interview)
     return (
       <Appointment
-        key={appt.id} 
-        id = {appt.id}
-        time = {appt.time}
-        interviewersForDay = {interviewersForDay}
-        interview = {interview} // invoking above function which is defined in helpers
+        key={appt.id}
+        id={appt.id}
+        time={appt.time}
+        interviewersForDay={interviewersForDay}
+        interview={interview} // invoking above function which is defined in helpers
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -85,7 +133,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
 
-        {appts} 
+        {appts}
         <Appointment key="last" time="7pm" />
 
       </section>

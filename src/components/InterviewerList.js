@@ -17,7 +17,7 @@ const classNames = require('classnames') // see docs: https://github.com/JedWats
 
 export default function InterviewerList(props) {
   const interviewers = props.interviewers;
-  console.log(interviewers)
+  // console.log(interviewers)
   const InterviewerListItems = interviewers.map(interviewer => {
     return (
     <InterviewerListItem
