@@ -17,9 +17,6 @@ const getAppointmentsForDay = (state, day) => {
 }
 
 
-
-
-
 const getInterview = (state, interview) => {
   let interviewerId;
   const output = {}
@@ -34,4 +31,21 @@ const getInterview = (state, interview) => {
 };
 
 
-export { getAppointmentsForDay, getInterview };
+const getInterviewersForDay = (state, day) => {
+  let results = []
+  for (const obj of state.days) {
+    if (obj.name === day) {
+      for (const dayAppt of obj.interviewers) {
+        for (const appt of Object.values(state.interviewers)) {
+          if (dayAppt === appt.id) {
+            results.push(appt)
+          }
+        }
+      }
+    }
+  }
+  return results
+}
+
+
+export { getAppointmentsForDay, getInterview, getInterviewersForDay };
