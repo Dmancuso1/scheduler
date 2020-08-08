@@ -9,9 +9,9 @@ export default function Form(props) {
 
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  console.log(props);
 
-
-  const reset = () => {
+  const reset = () => { 
     setName("");
     setInterviewer(null)
   };
@@ -24,6 +24,7 @@ export default function Form(props) {
   const save = () => {
     props.onSave(name, interviewer)
   };
+
 
 
   return (

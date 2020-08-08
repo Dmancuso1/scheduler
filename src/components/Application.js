@@ -43,9 +43,7 @@ export default function Application(props) {
 
 
 
-  /*
-This function will log the values that we pass to it for now. In the future it will allow us to change the local state when we book an interview. The next logical step is to ensure that the child can call the action with the correct data.
-*/
+  // Axios Requests
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -62,10 +60,11 @@ This function will log the values that we pass to it for now. In the future it w
         console.log('httpStatus: ', res.status);
         setState({ ...state, appointments })
       })
-      .catch((err) => {
-        console.log('catch', err);
-      });
+      // .catch((err) => {
+      //   console.log('catch', err);
+      // });
   };
+
 
   const cancelInterview = (id, interview) => {
     const appointment = {
@@ -84,9 +83,9 @@ This function will log the values that we pass to it for now. In the future it w
         console.log('httpStatus: ', res.status);
         setState({ ...state, appointments })
       })
-      .catch((err) => {
-        console.log('catch', err);
-      });
+      // .catch((err) => {
+      //   console.log('catch', err);
+      // });
   };
 
 
