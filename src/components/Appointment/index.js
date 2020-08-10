@@ -35,12 +35,12 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING);
+    transition(SAVING, true);
     props.bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW);
       })
-      .catch(err => transition(ERROR_SAVE))
+      .catch(err => transition(ERROR_SAVE)) // check 'true' with server in error state.
   }
 
   function onDelete() {
@@ -51,7 +51,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(EMPTY);
       })
-      .catch(err => transition(ERROR_DELETE, true));
+      .catch(err => transition(ERROR_DELETE, true)); // check 'true' with server in error state.
   }
 
 

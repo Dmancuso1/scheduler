@@ -59,11 +59,14 @@ export default function useApplicationData(initial) {
         console.log('httpStatus: ', res.status);
         // setState({ ...state, appointments })
         setState(prev => {
+          // const newState = { ...prev, appointments }
+          // updateSpots(newState)
+          // return newState
           const newState = { ...prev, appointments }
-          updateSpots(newState)
+          let updatedDays = updateSpots(newState)
+          newState.days = updatedDays
           return newState
         })
-        // 
 
       })
     // .catch((err) => {
@@ -71,10 +74,10 @@ export default function useApplicationData(initial) {
     // });
   };
 
-  const cancelInterview = (id, interview) => {
+  const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: null
     };
     const appointments = {
       ...state.appointments,
@@ -89,7 +92,8 @@ export default function useApplicationData(initial) {
         // setState({ ...state, appointments })
         setState(prev => {
           const newState = { ...prev, appointments }
-          updateSpots(newState)
+          let updatedDays = updateSpots(newState)
+          newState.days = updatedDays
           return newState
         })
       })
