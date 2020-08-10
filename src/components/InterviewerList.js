@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "components/InterviewerList.scss";
 import InterviewerListItem from "components/InterviewerListItem";
 const classNames = require('classnames') // see docs: https://github.com/JedWatson/classnames#usage
@@ -37,3 +38,8 @@ export default function InterviewerList(props) {
   )
 
 };
+
+// InterviewerList.propTypes = {
+//   value: PropTypes.string,
+//   // onChange: PropTypes.func.isRequired
+// };

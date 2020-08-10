@@ -1,6 +1,6 @@
 // will return an array of appointments for the given day.
 // this can be refactored with .find and then .map...
-const getAppointmentsForDay = (state, day) => {
+export const getAppointmentsForDay = (state, day) => {
   let results = []
   for (const obj of state.days) {
     if (obj.name === day) {
@@ -17,7 +17,7 @@ const getAppointmentsForDay = (state, day) => {
 }
 
 
-const getInterview = (state, interview) => {
+export const getInterview = (state, interview) => {
   let interviewerId;
   const output = {}
   if (!interview) {
@@ -31,7 +31,7 @@ const getInterview = (state, interview) => {
 };
 
 
-const getInterviewersForDay = (state, day) => {
+export const getInterviewersForDay = (state, day) => {
   let results = []
   for (const obj of state.days) {
     if (obj.name === day) {
@@ -47,5 +47,18 @@ const getInterviewersForDay = (state, day) => {
   return results
 }
 
-
-export { getAppointmentsForDay, getInterview, getInterviewersForDay };
+// function that updates spots for all days
+export const updateSpots = (state) => {
+  const updatedDays = [...state.days]
+  for (const day of updatedDays) {
+    let updatedSpots = 0;
+    day.appointments.forEach((appointmentId) => {
+      if (state.appointments[appointmentId].interview === null) {
+        updatedSpots++
+      }
+    })
+    
+    day.spots = updatedSpots
+  }
+  return updatedDays
+}
