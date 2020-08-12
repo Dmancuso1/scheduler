@@ -26,8 +26,6 @@ const ERROR_DELETE = "ERROR_DELETE"
 
 
 export default function Appointment(props) {
-  //  console.log('APPOINTMENT PROPS', props);
-
 
 
   function save(name, interviewer) {
@@ -35,18 +33,18 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING, true);
+    transition(SAVING);
     props.bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW);
       })
-      .catch(err => transition(ERROR_SAVE)) // check 'true' with server in error state.
+      .catch(err => transition(ERROR_SAVE, true)) // check 'true' with server in error state.
   }
 
   function onDelete() {
     const interview = null
 
-    transition(DELETING, true);
+    transition(DELETING);
     props.cancelInterview(props.id, interview)
       .then(() => {
         transition(EMPTY);
@@ -70,7 +68,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article data-testid="appointment" className="appointment">
       <Header
         time={props.time}
       />
@@ -106,7 +104,7 @@ export default function Appointment(props) {
         )}
       {mode === CONFIRM &&
         (<Confirm
-          message="Delete the appointment?"
+          message="Are you sure you would like to delete?"
           onConfirm={onDelete}
           onCancel={back}
         />
