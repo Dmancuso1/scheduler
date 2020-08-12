@@ -34,7 +34,7 @@ npm run storybook
 ## Screenshots
 
 
-![form](https://github.com/Dmancuso1/scheduler/raw/master/docs/form.png)
-![saving](https://github.com/Dmancuso1/scheduler/raw/master/docs/saving.png)
-![confirmation](https://github.com/Dmancuso1/scheduler/raw/master/docs/confirmation.png)
-![error_handling](https://github.com/Dmancuso1/scheduler/raw/master/docs/error_handling.png)
+![form](docs/form.png)
+![saving](docs/saving.png)
+![confirmation](docs/confirmation.png)
+![error_handling](docs/error_handling.png)
