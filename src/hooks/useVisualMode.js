@@ -1,3 +1,5 @@
+// setting the states and functions for visual modes.
+
 import React, { useState } from "react";
 
 export default function useVisualMode(initial) {

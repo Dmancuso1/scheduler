@@ -11,20 +11,19 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 export default function Application(props) {
 
 
-  const {state, setDay, bookInterview, cancelInterview} = useApplicationData()
-  
+  const { state, setDay, bookInterview, cancelInterview } = useApplicationData()
+
 
   const appts = getAppointmentsForDay(state, state.day).map(appt => {
     const interview = getInterview(state, appt.interview);
     const interviewersForDay = getInterviewersForDay(state, state.day)
-    // console.log('appt.interview', appt.interview)
     return (
       <Appointment
         key={appt.id}
         id={appt.id}
         time={appt.time}
         interviewersForDay={interviewersForDay}
-        interview={interview} // invoking above function which is defined in helpers
+        interview={interview} 
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
       />

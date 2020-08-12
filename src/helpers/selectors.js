@@ -49,7 +49,7 @@ export const getInterviewersForDay = (state, day) => {
 
 // function that updates spots for all days
 export const updateSpots = (state) => {
-  const updatedDays = [] // ...state.days
+  const updatedDays = [] 
   for (const day of state.days) {
     let updatedSpots = 0;
     day.appointments.forEach((appointmentId) => {
@@ -57,12 +57,8 @@ export const updateSpots = (state) => {
         updatedSpots++
       }
     })
-    let updatedDay = {...day, spots: updatedSpots}
-    // day.spots = updatedSpots // 
+    let updatedDay = { ...day, spots: updatedSpots }
     updatedDays.push(updatedDay)
   }
-  // setState(prev => {
-  //   return {...prev, days:updatedDays}
-  // })
   return updatedDays
 }

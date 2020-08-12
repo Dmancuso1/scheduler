@@ -11,9 +11,6 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 import useVisualMode from "../../hooks/useVisualMode"
 
-
-
-
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -26,8 +23,7 @@ const ERROR_DELETE = "ERROR_DELETE"
 
 
 export default function Appointment(props) {
-
-
+  // Saves appointment and passes intervew obj as prop
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -38,18 +34,18 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW);
       })
-      .catch(err => transition(ERROR_SAVE, true)) // check 'true' with server in error state.
+      .catch(err => transition(ERROR_SAVE, true)) 
   }
 
+  // Cancels appointment and passes null intervew as prop
   function onDelete() {
     const interview = null
-
     transition(DELETING);
     props.cancelInterview(props.id, interview)
       .then(() => {
         transition(EMPTY);
       })
-      .catch(err => transition(ERROR_DELETE, true)); // check 'true' with server in error state.
+      .catch(err => transition(ERROR_DELETE, true)); 
   }
 
 

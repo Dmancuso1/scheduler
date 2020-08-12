@@ -6,7 +6,7 @@ const classNames = require('classnames') // see docs: https://github.com/JedWats
 
 
 /*   
-Our InterviewerListItem component takes in the following props:
+takes the following props:
 
 id:number - the id of the interviewer
 name:string - the name of the interviewer
@@ -21,7 +21,7 @@ export default function InterviewerListItem(props) {
     "interviewers__item--selected" : props.selected,
     "interviewers__item-image" : props.selected
   });
-// console.log(props)
+
   return (
     <li className={InterviewerListItemClass} onClick={props.setInterviewer}>
       <img
