@@ -1,7 +1,7 @@
 // Sets the history state based on which mode the users selects. 
 // After initial mode is set we can transition (add to the array), go back (remove from the array), replace (replace last item in array)
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function useVisualMode(initial) {
 const [mode, setMode] = useState(initial);
