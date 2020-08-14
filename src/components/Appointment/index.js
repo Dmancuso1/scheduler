@@ -59,9 +59,6 @@ export default function Appointment(props) {
     transition(CREATE)
   }
 
-  const cancel = () => {
-    transition(EMPTY)
-  }
 
   return (
     <article data-testid="appointment" className="appointment">
@@ -117,7 +114,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE &&
         (<Error
           onClose={() => {
-            props.interview ? transition(SHOW) : transition(EMPTY);
+            props.interview ? transition(SHOW) : back();
           }}
           message="Could not save Appointment"
         />
