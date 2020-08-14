@@ -117,7 +117,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE &&
         (<Error
           onClose={() => {
-            props.interview ? transition(SHOW) :  transition(EMPTY)
+            props.interview ? transition(SHOW) : transition(EMPTY);
           }}
           message="Could not save Appointment"
         />
