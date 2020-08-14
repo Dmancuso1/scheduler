@@ -47,7 +47,7 @@ export const getInterviewersForDay = (state, day) => {
   return results
 }
 
-// function that updates spots for all days
+
 export const updateSpots = (state) => {
   const updatedDays = [] 
   for (const day of state.days) {
