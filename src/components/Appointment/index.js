@@ -40,7 +40,7 @@ export default function Appointment(props) {
   // Cancels appointment and passes null intervew as prop
   function onDelete() {
     const interview = null
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(props.id, interview)
       .then(() => {
         transition(EMPTY);
@@ -117,7 +117,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE &&
         (<Error
           onClose={() => {
-            transition(SHOW)
+            transition(EMPTY)
           }}
           message="Could not save Appointment"
         />
