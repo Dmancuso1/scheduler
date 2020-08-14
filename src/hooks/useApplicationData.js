@@ -20,18 +20,13 @@ export default function useApplicationData(initial) {
   const setAppointment = appointments => setState(prev => ({ ...prev, appointments }));
   const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
-  const url1 = "/api/days"
-  const url2 = "/api/appointments"
-  const url3 = "/api/interviewers"
-
-
 
   // Axios to get data from db
   useEffect(() => {
     Promise.all([
-      axios.get(url1),
-      axios.get(url2),
-      axios.get(url3)
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
     ])
       .then((all) => {
         setDays(all[0].data)
